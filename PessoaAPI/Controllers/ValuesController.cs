@@ -10,6 +10,7 @@ using System.Threading;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
+using PessoaAPI.service;
 
 namespace PessoaAPI.Controllers
 {
@@ -19,8 +20,11 @@ namespace PessoaAPI.Controllers
     {
         private readonly IHttpContextAccessor _accessor;
 
-        public ValuesController(IHttpContextAccessor accessor){
+        private readonly IMyFirstService _myFirstService;
+
+        public ValuesController(IHttpContextAccessor accessor, IMyFirstService myFirstService){
             _accessor = accessor;
+            _myFirstService = myFirstService;
         }
 
         // GET api/values
@@ -59,18 +63,21 @@ namespace PessoaAPI.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+            _myFirstService.myFirstMethod();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _myFirstService.myFirstMethod();
         }
     }
 }

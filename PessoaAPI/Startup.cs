@@ -1,17 +1,9 @@
-﻿using System.Reflection.Metadata;
-using System.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using PessoaAPI.service;
 using PessoaAPI.service.impl;
 
@@ -33,8 +25,14 @@ namespace PessoaAPI
 
             services.AddHttpContextAccessor();
 
+            //services.AddDbContext<Repository.Repository.BloggingContext>();
+
             //Adding the Service on scope to managing the DI
             services.AddScoped<IMyFirstService, MyFirstService>();
+
+            services.AddTransient<IAnotherService, AnotherService>();
+
+            services.AddDbContextPool<Repository.Repository.BloggingContext>(options => options.UseSqlite("Data Source=Blog.db"));
 
         }
 
